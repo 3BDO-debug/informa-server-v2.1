@@ -24,4 +24,7 @@ urlpatterns = [
     path("inquires/", include("inquires.urls")),
 ]
 
+admin.site.site_header = "Informa administration"
+
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

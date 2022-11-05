@@ -8,6 +8,7 @@ class Inquiry(models.Model):
     phone_number = models.CharField(max_length=100, verbose_name="Phone number")
     email = models.EmailField(verbose_name="Email")
     message = models.TextField(verbose_name="Message")
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
 
     class Meta:
         verbose_name = "Inquiry"
