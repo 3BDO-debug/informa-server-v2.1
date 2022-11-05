@@ -65,6 +65,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "informa.urls"
 
+CSRF_TRUSTED_ORIGINS = ["https://informa-server.herokuapp.com"]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
