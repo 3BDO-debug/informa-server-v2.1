@@ -9,6 +9,7 @@ class Inquiry(models.Model):
     email = models.EmailField(verbose_name="Email")
     message = models.TextField(verbose_name="Message")
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
+    proceeded = models.BooleanField(default=False, verbose_name="Request proceeded")
 
     class Meta:
         verbose_name = "Inquiry"

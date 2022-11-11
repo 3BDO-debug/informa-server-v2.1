@@ -19,6 +19,7 @@ class PersonalTrainingRequest(models.Model):
     )
     computed_total_price = models.FloatField(verbose_name="Computed total price")
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
+    proceeded = models.BooleanField(default=False, verbose_name="Request is proceeded")
 
     class Meta:
         verbose_name = "Personal training request"

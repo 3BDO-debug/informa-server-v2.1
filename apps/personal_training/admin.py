@@ -9,13 +9,10 @@ from . import models
 class PersonalTrainingRequestAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = (
         "fullname",
+        "proceeded",
         "phone_number",
         "cor",
         "payment_currency",
-        "age",
-        "gender",
-        "weight",
-        "height",
         "plan_program",
         "plan_duration",
         "followup_package",
