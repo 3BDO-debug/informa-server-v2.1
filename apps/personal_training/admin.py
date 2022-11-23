@@ -18,7 +18,7 @@ class PersonalTrainingRequestAdmin(ExportActionMixin, admin.ModelAdmin):
         "proceeded",
         "phone_number",
         "cor",
-        "payment_currency",
+        "paying_region",
         "plan_program",
         "plan_duration",
         "followup_package",

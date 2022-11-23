@@ -7,7 +7,7 @@ class PersonalTrainingRequest(models.Model):
     fullname = models.CharField(max_length=100, verbose_name="Full name")
     phone_number = models.CharField(max_length=100, verbose_name="Phone Number")
     cor = models.CharField(max_length=100, verbose_name="Country of residence")
-    payment_currency = models.CharField(max_length=100, verbose_name="Payment currency")
+    paying_region = models.CharField(max_length=100, verbose_name="Paying region")
     age = models.IntegerField(verbose_name="Age")
     gender = models.CharField(max_length=100, verbose_name="Gender")
     weight = models.IntegerField(verbose_name="Weight")

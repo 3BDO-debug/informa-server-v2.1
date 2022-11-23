@@ -9,7 +9,7 @@ def personal_training_requests_handler(request):
     fullname = request.data.get("fullname")
     phone_number = request.data.get("whatsappNumber")
     cor = request.data.get("cor")
-    payment_currency = request.data.get("paymentCurrency")
+    paying_region = request.data.get("payingRegion")
     age = request.data.get("age")
     gender = request.data.get("gender")
     weight = int(request.data.get("weight"))
@@ -23,7 +23,7 @@ def personal_training_requests_handler(request):
         fullname=fullname,
         phone_number=phone_number,
         cor=cor,
-        payment_currency=payment_currency,
+        paying_region=paying_region,
         age=age,
         gender=gender,
         weight=weight,
