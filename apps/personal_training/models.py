@@ -18,6 +18,10 @@ class PersonalTrainingRequest(models.Model):
         max_length=100, verbose_name="Follow-up package"
     )
     computed_total_price = models.FloatField(verbose_name="Computed total price")
+    computed_price_after_sale = models.FloatField(
+        verbose_name="Computed price after sale", null=True, blank=True
+    )
+    has_sale = models.BooleanField(default=False, verbose_name="Sale is activated")
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
     proceeded = models.BooleanField(default=False, verbose_name="Request is proceeded")
 

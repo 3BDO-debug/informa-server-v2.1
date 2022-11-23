@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("personal-training/", include("personal_training.urls")),
     path("inquires/", include("inquires.urls")),
+    path("offers/", include("offers.urls")),
 ]
 
 admin.site.site_header = "Informa administration"

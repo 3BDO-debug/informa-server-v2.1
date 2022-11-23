@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "personal_training",
     "inquires",
+    "offers",
 ]
 
 MIDDLEWARE = [

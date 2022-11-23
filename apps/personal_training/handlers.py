@@ -18,6 +18,12 @@ def personal_training_requests_handler(request):
     plan_duration = request.data.get("planDuration")
     followup_package = request.data.get("followUpPackage")
     computed_total_price = float(request.data.get("computedTotalPrice"))
+    computed_price_after_sale = (
+        float(request.data.get("computedPriceAfterSale"))
+        if request.data.get("computedPriceAfterSale")
+        else None
+    )
+    has_sale = bool(computed_price_after_sale)
 
     models.PersonalTrainingRequest.objects.create(
         fullname=fullname,
@@ -32,6 +38,8 @@ def personal_training_requests_handler(request):
         plan_duration=plan_duration,
         followup_package=followup_package,
         computed_total_price=computed_total_price,
+        computed_price_after_sale=computed_price_after_sale,
+        has_sale=has_sale,
     ).save()
 
     return Response(status=status.HTTP_200_OK)
