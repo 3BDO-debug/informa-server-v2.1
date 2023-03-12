@@ -50,24 +50,28 @@ def user_got_turn():
 
     staff_member = None
 
-    active_task = models.OnlineTrainingTask.objects.get(is_active=True)
-    task_members = models.OnlineTrainingTaskMember.objects.filter(task=active_task)
+    try:
 
-    """ Check if tasks needs to be resetted """
+        active_task = models.OnlineTrainingTask.objects.get(is_active=True)
+        task_members = models.OnlineTrainingTaskMember.objects.filter(task=active_task)
 
-    last_task_member = task_members.last()
+        """ Check if tasks needs to be resetted """
 
-    if last_task_member.number_of_assigned_tasks == last_task_member.tasks_per_turn:
+        last_task_member = task_members.last()
+
+        if last_task_member.number_of_assigned_tasks == last_task_member.tasks_per_turn:
+            for task_member in task_members:
+                task_member.number_of_assigned_tasks = 0
+                task_member.save()
+
         for task_member in task_members:
-            task_member.number_of_assigned_tasks = 0
-            task_member.save()
+            if task_member.tasks_per_turn != task_member.number_of_assigned_tasks:
+                staff_member = task_member.user
+                task_member.number_of_assigned_tasks += 1
+                task_member.save()
 
-    for task_member in task_members:
-        if task_member.tasks_per_turn != task_member.number_of_assigned_tasks:
-            staff_member = task_member.user
-            task_member.number_of_assigned_tasks += 1
-            task_member.save()
-
-            break
+                break
+    except:
+        staff_member = None
 
     return staff_member
