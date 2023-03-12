@@ -17,6 +17,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from dotenv import load_dotenv
+from datetime import timedelta
 from pathlib import Path
 
 load_dotenv()
@@ -32,7 +33,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["informa-server.herokuapp.com", "127.0.0.1"]
 
@@ -47,9 +48,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "personal_training",
     "inquires",
     "offers",
+    "programs_generator",
+    "accounts",
+    "meals",
+    "system_logs",
+    "tasks",
 ]
 
 MIDDLEWARE = [
@@ -68,6 +75,10 @@ ROOT_URLCONF = "informa.urls"
 
 CSRF_TRUSTED_ORIGINS = ["https://informa-server.herokuapp.com"]
 
+# Custome auth model
+AUTH_USER_MODEL = "accounts.User"
+
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -85,6 +96,34 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "informa.wsgi.application"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "VERIFYING_KEY": None,
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+}
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 

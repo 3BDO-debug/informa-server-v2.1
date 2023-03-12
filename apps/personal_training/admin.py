@@ -23,6 +23,7 @@ class PersonalTrainingRequestAdmin(ExportActionMixin, admin.ModelAdmin):
         "plan_duration",
         "followup_package",
         "computed_total_price",
+        "timestamp",
     )
 
     actions = [make_proceeded]

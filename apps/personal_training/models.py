@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 # Create your models here.
 
@@ -22,8 +23,12 @@ class PersonalTrainingRequest(models.Model):
         verbose_name="Computed price after sale", null=True, blank=True
     )
     has_sale = models.BooleanField(default=False, verbose_name="Sale is activated")
-    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
+    timestamp = models.DateTimeField(verbose_name="Timestamp")
     proceeded = models.BooleanField(default=False, verbose_name="Request is proceeded")
+    proceeded_at = models.DateTimeField(verbose_name="Proceeded at", null=True)
+    assigned_to = models.ForeignKey(
+        User, verbose_name="Assigned To", on_delete=models.RESTRICT, null=True
+    )
 
     class Meta:
         verbose_name = "Personal training request"

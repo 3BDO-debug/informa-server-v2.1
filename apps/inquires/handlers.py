@@ -1,10 +1,16 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 from rest_framework.response import Response
 from rest_framework import status
 from . import models
 
 
 @api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
 def inquires_handler(request):
 
     fullname = request.data.get("fullName")
