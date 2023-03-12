@@ -35,7 +35,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["informa-server.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "informa-server.herokuapp.com",
+    "127.0.0.1",
+    "informa-server-v2.herokuapp.com",
+]
 
 
 # Application definition
