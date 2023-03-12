@@ -23,7 +23,7 @@ class PersonalTrainingRequest(models.Model):
         verbose_name="Computed price after sale", null=True, blank=True
     )
     has_sale = models.BooleanField(default=False, verbose_name="Sale is activated")
-    timestamp = models.DateTimeField(verbose_name="Timestamp")
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
     proceeded = models.BooleanField(default=False, verbose_name="Request is proceeded")
     proceeded_at = models.DateTimeField(verbose_name="Proceeded at", null=True)
     assigned_to = models.ForeignKey(
