@@ -77,7 +77,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "informa.urls"
 
-CSRF_TRUSTED_ORIGINS = ["https://informa-server.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["informa-server-v2.herokuapp.com"]
 
 # Custome auth model
 AUTH_USER_MODEL = "accounts.User"
