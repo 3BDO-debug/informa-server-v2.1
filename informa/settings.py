@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "meals",
     "system_logs",
     "tasks",
+    "website_tracking",
 ]
 
 MIDDLEWARE = [

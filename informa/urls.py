@@ -40,6 +40,7 @@ urlpatterns = [
     path("inject-requests/", personal_training_requests_injector),
     path("system-logs/", include("system_logs.urls")),
     path("tasks/", include("tasks.urls")),
+    path("website-tracking/", include("website_tracking.urls")),
 ]
 
 admin.site.site_header = "Informa administration"
