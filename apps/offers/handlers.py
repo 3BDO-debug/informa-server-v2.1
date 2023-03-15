@@ -34,8 +34,8 @@ def announcements_handler(request):
 @permission_classes([])
 def offers_handler(request):
     try:
-        offers = models.Offer.objects.all()[0]
-        offers_serializer = serializers.OfferSerializer(offers, many=False)
+        offers = models.Offer.objects.all()
+        offers_serializer = serializers.OfferSerializer(offers, many=True)
 
         return Response(status=status.HTTP_200_OK, data=offers_serializer.data)
 

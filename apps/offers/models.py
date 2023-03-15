@@ -35,6 +35,9 @@ class Offer(models.Model):
     plan_type_offer = models.BooleanField(
         default=False, verbose_name="Activate offer for plan type"
     )
+    is_customized_offer = models.BooleanField(
+        default=False, verbose_name="Is customized offer ?"
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
 
     class Meta:
