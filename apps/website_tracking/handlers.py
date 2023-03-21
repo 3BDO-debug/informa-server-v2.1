@@ -10,7 +10,10 @@ from . import models, serializers
 
 @api_view(["GET"])
 def website_logs_data(request):
-    pass
+    website_logs = models.WebsiteLog.objects.all().order_by("-timestamp")
+    website_logs_serializer = serializers.WebsiteLogSerializer(website_logs, many=True)
+
+    return Response(status=status.HTTP_200_OK, data=website_logs_serializer.data)
 
 
 @api_view(["POST"])
