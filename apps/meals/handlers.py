@@ -94,6 +94,7 @@ class MealItemsHandler(APIView):
     def post(self, request, meal_id, format=None):
         meal = models.Meal.objects.get(id=meal_id)
         food_item = models.FoodItem.objects.get(id=request.data.get("foodItem")["id"])
+        category = request.data.get("category")
         serving = request.data.get("serving") if meal.is_snack else 1
         food_item_protein_per_gram = food_item.protein / food_item.serving
         protein_grams = food_item_protein_per_gram * serving
@@ -107,6 +108,7 @@ class MealItemsHandler(APIView):
         models.MealItem.objects.create(
             meal=meal,
             food_item=food_item,
+            category=category,
             serving=serving,
             protein=protein_grams,
             carbs=carbs_grams,

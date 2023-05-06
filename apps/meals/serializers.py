@@ -24,7 +24,7 @@ class MealSerializer(ModelSerializer):
         food_items = []
         meal_items = models.MealItem.objects.filter(meal=instance.id)
         for meal_item in meal_items:
-            food_items.append(FoodItemSerializer(meal_item.food_item, many=False).data)
+            food_items.append(MealItemSerializer(meal_item, many=False).data)
         data["food_items"] = food_items
         data["meal_type_name"] = instance.meal_type.name
 
@@ -39,4 +39,7 @@ class MealItemSerializer(ModelSerializer):
     def to_representation(self, instance):
         data = super(MealItemSerializer, self).to_representation(instance)
         data["food_item_name"] = instance.food_item.en_name
+        data["food_item"] = FoodItemSerializer(instance.food_item, many=False).data
+        data["food_item_id"] = instance.food_item.id
+
         return data

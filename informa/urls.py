@@ -21,7 +21,6 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from personal_training.handlers import personal_training_requests_injector
 
 urlpatterns = [
     path(
@@ -31,13 +30,13 @@ urlpatterns = [
         "api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"
     ),  # jwt auth
     path("accounts/", include("accounts.urls")),
+    path("clients/", include("clients.urls")),
     path("admin/", admin.site.urls),
     path("personal-training/", include("personal_training.urls")),
     path("inquires/", include("inquires.urls")),
     path("offers/", include("offers.urls")),
-    path("programs-generator/", include("programs_generator.urls")),
+    path("nutrition-plan-algorithm/", include("nutrition_plan_algorithm.urls")),
     path("meals/", include("meals.urls")),
-    path("inject-requests/", personal_training_requests_injector),
     path("system-logs/", include("system_logs.urls")),
     path("tasks/", include("tasks.urls")),
     path("website-tracking/", include("website_tracking.urls")),

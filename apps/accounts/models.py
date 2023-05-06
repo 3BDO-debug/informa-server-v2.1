@@ -26,7 +26,9 @@ class AllowedView(models.Model):
 
 class User(AbstractUser):
     role = models.CharField(max_length=350, verbose_name="Role", null=True)
-    allowed_views = models.ManyToManyField(AllowedView, verbose_name="Allowed Views")
+    allowed_views = models.ManyToManyField(
+        AllowedView, verbose_name="Allowed Views", null=True, blank=True
+    )
     is_logged_in = models.BooleanField(
         default=False, verbose_name="This user is logged in"
     )

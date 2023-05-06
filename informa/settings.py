@@ -53,10 +53,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
+    "clients",
     "personal_training",
     "inquires",
     "offers",
-    "programs_generator",
     "accounts",
     "meals",
     "system_logs",
@@ -143,8 +143,8 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES["default"] = dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+""" DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES["default"] = dj_database_url.config(default=os.environ.get("DATABASE_URL")) """
 
 # cloudinary config
 cloudinary.config(

@@ -4,7 +4,6 @@ from django.db import models
 
 
 class FoodItem(models.Model):
-    category = models.CharField(max_length=350, verbose_name="Category")
     en_name = models.CharField(max_length=350, verbose_name="Meal english name")
     ar_name = models.CharField(max_length=350, verbose_name="Meal arabic name")
     serving = models.IntegerField(verbose_name="Serving")
@@ -12,6 +11,15 @@ class FoodItem(models.Model):
     fats = models.FloatField(verbose_name="Fats")
     carbs = models.FloatField(verbose_name="Carbs")
     total_kcal = models.FloatField(verbose_name="Total kcal")
+    calc_per_piece = models.BooleanField(
+        default=False, verbose_name="This food item should be calculated per piece ?"
+    )
+    per_piece_serving = models.FloatField(
+        verbose_name="Per piece serving", default=0.00
+    )
+    per_piece_name = models.CharField(
+        max_length=350, verbose_name="Per piece name", null=True, blank=True
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
 
     class Meta:
@@ -36,6 +44,7 @@ class MealType(models.Model):
 
 class Meal(models.Model):
     name = models.CharField(max_length=350, verbose_name="Meal name")
+
     meal_type = models.ForeignKey(
         MealType,
         on_delete=models.CASCADE,
@@ -66,14 +75,24 @@ class Meal(models.Model):
 
 class MealItem(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, verbose_name="Meal")
+    category = models.CharField(max_length=350, verbose_name="Category")
+
     food_item = models.ForeignKey(
         FoodItem, on_delete=models.CASCADE, verbose_name="Food Item"
+    )
+    video_link = models.CharField(
+        max_length=350, verbose_name="Video link", default="Video Link Here"
+    )
+    preparation_description = models.TextField(
+        verbose_name="Meal item preparation description",
+        default="Meal item preparation description",
     )
     serving = models.IntegerField(verbose_name="Serving")
     protein = models.FloatField(verbose_name="Protein per serving")
     carbs = models.FloatField(verbose_name="Carbohydrates per serving")
     fats = models.FloatField(verbose_name="Fats per serving")
     total_kcal = models.FloatField(verbose_name="Total kcal")
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
 
     class Meta:
