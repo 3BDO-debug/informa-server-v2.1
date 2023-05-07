@@ -1,40 +1,10 @@
 nutrition_plan = {
-    "week_1": {
-        "day_1": None,
-        "day_2": None,
-        "day_3": None,
-        "day_4": None,
-        "day_5": None,
-        "day_6": None,
-        "day_7": None,
-    },
-    "week_2": {
-        "day_1": None,
-        "day_2": None,
-        "day_3": None,
-        "day_4": None,
-        "day_5": None,
-        "day_6": None,
-        "day_7": None,
-    },
-    "week_3": {
-        "day_1": None,
-        "day_2": None,
-        "day_3": None,
-        "day_4": None,
-        "day_5": None,
-        "day_6": None,
-        "day_7": None,
-    },
-    "week_4": {
-        "day_1": None,
-        "day_2": None,
-        "day_3": None,
-        "day_4": None,
-        "day_5": None,
-        "day_6": None,
-        "day_7": None,
-    },
+    "meals": None,
+    "refeed_meals": None,
+    "low_carb_days_meals": None,
+    "high_carb_days_meals": None,
+    "snacks": None,
+    "refeed_snacks": None,
 }
 
 

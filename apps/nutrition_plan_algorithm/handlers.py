@@ -269,6 +269,7 @@ class GeneratePlans(APIView):
                 "weight": client_macros_data["weight"],
             },
             number_of_meals=number_of_meals,
+            snacks=nutrition_plan_snacks,
             refeed_snacks=json.loads(request.data.get("refeedSnacks"))
             if program_schema == "Refeed"
             else None,
@@ -276,7 +277,7 @@ class GeneratePlans(APIView):
 
         return Response(
             status=status.HTTP_200_OK,
-            data={"meals": nutrition_plan, "snacks": nutrition_plan_snacks},
+            data=nutrition_plan,
         )
 
 

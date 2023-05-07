@@ -84,41 +84,17 @@ def create_schema_instance(
 
 
 def nutrition_plan_generator(
-    meals_data,
-    generation_schema,
-    required_macros,
-    number_of_meals,
-    snacks,
-    refeed_snacks=None,
+    meals_data, generation_schema, required_macros, number_of_meals, refeed_snacks=None
 ):
     schema_instance = create_schema_instance(
         generation_schema, meals_data, required_macros, number_of_meals, refeed_snacks
     )
     generated_plan = copy.deepcopy(nutrition_plan)
 
-    generated_plan["snacks"] = snacks
-
-    if generation_schema == "Balanced":
-        daily_meals = schema_instance.daily_meals("week_1", "day_1")
-        generated_plan["meals"] = daily_meals
-
-    elif generation_schema == "Refeed":
-        generated_plan["meals"] = schema_instance.daily_meals("week_1", "day_1")
-        refeed_data = schema_instance.daily_meals("week_1", "day_7")
-        generated_plan["refeed_meals"] = refeed_data.get("meals")
-        generated_plan["refeed_snacks"] = refeed_data.get("refeed_snacks")
-
-    elif generation_schema == "Carb cycle":
-        low_carb_meals = schema_instance.daily_meals("week_1", "day_1")
-        high_carb_meals = schema_instance.daily_meals("week_1", "day_7")
-        generated_plan["low_carb_days_meals"] = low_carb_meals
-        generated_plan["high_carb_days_meals"] = high_carb_meals
-
-    elif generation_schema == "PSMF":
-        daily_meals = schema_instance.daily_meals("week_1", "day_1")
-        psmf_refeed_meals = schema_instance.daily_meals("week_1", "day_7")
-        generated_plan["meals"] = daily_meals
-        generated_plan["refeed_meals"] = psmf_refeed_meals
+    for week_index in generated_plan:
+        for day_index in generated_plan[week_index]:
+            daily_meals = schema_instance.daily_meals(week_index, day_index)
+            generated_plan[week_index][day_index] = daily_meals
 
     return generated_plan
 
@@ -179,10 +155,6 @@ def balanced_daily_meals_adder(meals_data, macros, number_of_meals):
 def refeed_daily_meals_adder(meals_data, macros, number_of_meals, refeed_snacks):
     refeed_snacks_data = []
     macros["carb_grams"] = macros["carb_grams"] + (macros["deficit"] / 4)
-    refeed_macros = copy.deepcopy(macros)
-    refeed_macros["carb_grams"] = refeed_macros["carb_grams"] + (
-        refeed_macros["deficit"] / 4
-    )
 
     for snack in refeed_snacks:
         snack_data = {"preset_name": snack["presetId"], "food_items": None}
@@ -190,18 +162,16 @@ def refeed_daily_meals_adder(meals_data, macros, number_of_meals, refeed_snacks)
         for snack_preset in snack["content"]:
             food_item = refeed_snacks_macros_generator(
                 snack_id=snack_preset["id"],
-                carbs_grams=(refeed_macros["carb_grams"] * 0.60 / len(refeed_snacks)),
+                carbs_grams=(macros["carb_grams"] * 0.60 / len(refeed_snacks)),
             )
             snack_data["preset_name"] = snack_preset["label"]
             snack_data["food_items"] = food_item
 
         refeed_snacks_data.append(snack_data)
 
-    refeed_macros["carb_grams"] *= 0.40
+    macros["carb_grams"] *= 0.40
 
-    generated_plan = balanced_daily_meals_adder(
-        meals_data, refeed_macros, number_of_meals
-    )
+    generated_plan = balanced_daily_meals_adder(meals_data, macros, number_of_meals)
 
     return {"refeed_snacks": refeed_snacks_data, "meals": generated_plan}
 
