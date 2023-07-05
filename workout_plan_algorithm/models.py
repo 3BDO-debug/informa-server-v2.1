@@ -61,14 +61,12 @@ class Excercise(models.Model):
         verbose_name="Accessory muscle",
         related_name="related_accessory_muscle_muscle",
     )
-    related_equipment = models.ForeignKey(
+    related_equipment = models.ManyToManyField(
         Equipment,
-        on_delete=models.CASCADE,
         verbose_name="Related equipment",
         null=True,
         blank=True,
-        related_name="related_equipment",
-    )
+       )
     workout_thumbnail = CloudinaryField(
         verbose_name="Excercise thumbnail", null=True, blank=True
     )
