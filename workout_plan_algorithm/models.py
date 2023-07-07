@@ -53,9 +53,7 @@ class Equipment(models.Model):
 
 class Excercise(models.Model):
     name = models.CharField(max_length=350, verbose_name="Excercise name")
-    related_muscle = models.ForeignKey(
-        Muscle, on_delete=models.CASCADE, verbose_name="Related muscle"
-    )
+    related_muscle = models.ManyToManyField(Muscle, verbose_name="Related muscle")
     related_accessory_muscle = models.ManyToManyField(
         Muscle,
         verbose_name="Accessory muscle",
@@ -66,7 +64,7 @@ class Excercise(models.Model):
         verbose_name="Related equipment",
         null=True,
         blank=True,
-       )
+    )
     workout_thumbnail = CloudinaryField(
         verbose_name="Excercise thumbnail", null=True, blank=True
     )
