@@ -70,6 +70,9 @@ class Excercise(models.Model):
     )
     video = CloudinaryField(verbose_name="Excercise video", null=True, blank=True)
     video_link = models.URLField(verbose_name="Excercise video", null=True, blank=True)
+    stabilizers = models.ManyToManyField(
+        Muscle, null=True, blank=True, related_name="stabilizers_muscle"
+    )
     is_home_workout = models.BooleanField(
         default=False, verbose_name="Is home excercise ?"
     )
